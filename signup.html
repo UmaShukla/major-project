@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | PlayPal</title>
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <img src="path/to/your/logo.png" alt="PlayPal Logo" class="logo">
+        <div class="auth-box">
+            <h2>Create Your PlayPal Account</h2>
+            <form action="#" method="POST" onsubmit="return validateForm()">
+                <div class="input-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" name="fullname" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" maxlength="10" required>
+                    <small>Please enter a 10-digit phone number.</small>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <input type="checkbox" id="show-password" onclick="togglePassword()"> Show Password
+                </div>
+                <div class="input-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                </div>
+                <div class="input-group">
+                    <button type="submit" class="btn">Sign Up</button>
+                </div>
+                <div class="login-link">
+                    <p>Already have an account? <a href="login.html">Login here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirm_password');
+            const showPasswordCheckbox = document.getElementById('show-password');
+            passwordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
+            confirmPasswordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
+        }
+
+        // Function to validate the form
+        function validateForm() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            const phone = document.getElementById('phone').value;
+            const passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/; // At least one uppercase, one number, no special characters
+            const phonePattern = /^[0-9]{10}$/; // 10 digits only
+
+            if (!passwordPattern.test(password)) {
+                alert('Password must be at least 8 characters long, contain at least one uppercase letter and one number, and no special characters.');
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return false;
+            }
+
+            if (!phonePattern.test(phone)) {
+                alert('Phone number must be exactly 10 digits long.');
+                return false;
+            }
+
+            return true; // Form is valid
+        }
+    </script>
+</body>
+</html>
